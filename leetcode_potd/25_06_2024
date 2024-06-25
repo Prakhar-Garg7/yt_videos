@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+import java.util.* ;
+import java.io.* ;
+class Solution {
+  public TreeNode bstToGst(TreeNode root) {
+    if (root == null) return null; // Handle empty tree
+
+    ArrayList<Integer> inorderList = new ArrayList<>();
+    Stack<TreeNode> stack = new Stack<>();
+    TreeNode node = root;
+    while (true) {
+      if (node != null) {
+        stack.push(node);
+        node = node.left;
+      } else {
+        if (stack.isEmpty()) break;
+        TreeNode delNode = stack.pop();
+        inorderList.add(delNode.val);
+        node = delNode.right;
+      }
+    }
+
+    int n = inorderList.size();
+    for (int i = n - 2; i >= 0; i--) {
+      int sum = inorderList.get(i) + (i + 1 < n ? inorderList.get(i + 1) : 0); // Handle missing right child
+      inorderList.set(i, sum);
+    }
+
+    node = root;
+    int ptr = 0;
+    while (true) {
+      if (node != null) {
+        stack.push(node);
+        node = node.left;
+      } else {
+        if (stack.isEmpty()) break;
+        TreeNode delNode = stack.pop();
+        delNode.val = inorderList.get(ptr);
+        ptr++;
+        node = delNode.right;
+      }
+    }
+
+    return root;
+  }
+}
