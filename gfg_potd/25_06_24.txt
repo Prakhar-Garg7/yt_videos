@@ -1,0 +1,19 @@
+class Solution {
+    int[][] rotateMatrix(int k, int mat[][]) {
+        // code here
+        int rows = mat.length, cols = mat[0].length;
+        k %= cols;
+        int[][] ans = new int[rows][cols];
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols - k; j++){
+                ans[i][j] = mat[i][j + k];
+            }
+        }
+        for(int i = 0; i < rows; i++){
+            for(int j = cols - k; j < cols; j++){
+                ans[i][j] = mat[i][j + k - cols];
+            }
+        }
+        return ans;
+    }
+}
