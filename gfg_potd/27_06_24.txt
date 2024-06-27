@@ -1,0 +1,26 @@
+class GfG {
+    /*You are required to complete this method*/
+    boolean isToepliz(int grid[][]) {
+        // Your code here
+        int n = grid.length, m = grid[0].length;
+        for(int i = 0; i < n; i++){
+            int val = grid[i][0];
+            int rowPtr = i, colPtr = 0;
+            while(rowPtr < n && colPtr < m){
+                if(grid[rowPtr][colPtr] != val) return false;
+                rowPtr++;
+                colPtr++;
+            }
+        }
+        for(int i = 1; i < m; i++){
+            int val = grid[0][i];
+            int rowPtr = 0, colPtr = i;
+            while(rowPtr < n && colPtr < m){
+                if(grid[rowPtr][colPtr] != val) return false;
+                rowPtr++;
+                colPtr++;
+            }
+        }
+        return true;
+    }
+}
